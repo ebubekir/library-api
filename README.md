@@ -9,9 +9,15 @@ Library API built with FastAPI
 ``
 pip install -r requirements.txt
 ``
+
 ## Run app
 `python app/main.py`
+## Start Celery Tasks
 
+``celery -A app.server.tasks worker -l INFO``
+
+For periodic tasks:
+``celery -A app.server.tasks beat -l INFO``
 # Routes
 
 ## Books Routes
