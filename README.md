@@ -13,7 +13,7 @@ pip install -r requirements.txt
 `python app/main.py`
 
 # Routes
-***
+
 ## Books Routes
 **GET** books/<br>
 Get all the book information in the database.
