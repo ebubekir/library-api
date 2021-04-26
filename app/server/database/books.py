@@ -1,10 +1,15 @@
 import pymongo
 from bson.objectid import ObjectId
+import redis
+import ast
 client = pymongo.MongoClient("localhost", 27017)
 database = client.library
 
 book_collection = database.get_collection("books")
-
+r = redis.Redis(
+    host='localhost',
+    port = '6379'
+)
 
 def book_helper(book) -> dict:
     return {
@@ -14,9 +19,9 @@ def book_helper(book) -> dict:
     }
 
 def retrieve_books():
-    books = []
-    for book in book_collection.find():
-        books.append(book_helper(book))
+    redis_data = r.get("libraryAPI:books")
+    dict_str = redis_data.decode("UTF-8")
+    books = ast.literal_eval(dict_str)
     return books
 
 def add_book(book_data: dict) -> dict:
